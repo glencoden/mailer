@@ -1,0 +1,17 @@
+{
+    "name": "glencoden-mailer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "glencoden",
+    "license": "ISC",
+    "dependencies": {
+        "@sendgrid/mail": "^7.7.0",
+        "body-parser": "^1.20.2",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2"
+    }
+}

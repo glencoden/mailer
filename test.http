@@ -1,0 +1,12 @@
+POST http://localhost:5555
+Content-Type: application/json
+
+// page: "hainarbeit | looneys"
+{
+    "name": "glen coden",
+    "email": "simon.der.meyer@gmail.com",
+    "content": "glen was here",
+    "page": "looneys"
+}
+
+###
