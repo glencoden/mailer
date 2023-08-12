@@ -4,9 +4,9 @@ Content-Type: application/json
 // page: "hainarbeit | looneys"
 {
     "name": "glen coden",
-    "email": "simon.der.meyer@gmail.com",
+    "email": "info@simonmeyer.de",
     "content": "glen was here",
-    "page": "looneys"
+    "page": ""
 }
 
 ###

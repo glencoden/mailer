@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 
 const express = require('express')
 const app = express()
@@ -12,9 +12,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const PORT = process.env.PORT || 5555
 
 app.post('/', async (req, res) => {
-    console.log(req.body.name, req.body.email, req.body.content, req.body.page)
-
-    let to = "simon.der.meyer@gmail.com"
+    let to = 'simon.der.meyer@gmail.com'
 
     switch (req.body.page) {
         case 'hainarbeit':
@@ -25,24 +23,34 @@ app.post('/', async (req, res) => {
             break
     }
 
-    const msg = {
-        to,
-        from: 'simon.der.meyer@gmail.com',
-        subject: 'Sending with SendGrid is Fun',
-        text: 'and easy to do anywhere, even with Node.js',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    }
-
-    sgMail
-        .send(msg)
+    await sgMail
+        .send({
+            to,
+            from: 'simon.der.meyer@gmail.com',
+            subject: `Anfrage von ${req.body.name}`,
+            text: req.body.content,
+            html: `
+                <a href="mailto:${req.body.email}">
+                    <button style="cursor: pointer; margin: 42px 0; color: deeppink;">
+                        <strong>Antwort an ${req.body.name}</strong>
+                    </button>
+                </a>
+                <br/>
+                <p>${req.body.content}</p>
+            `,
+        })
         .then(() => {
-            console.log('Email sent')
+            res.json({
+                success: true,
+                error: null,
+            })
         })
         .catch((error) => {
-            console.error(error)
+            res.json({
+                success: false,
+                error,
+            })
         })
-
-    res.send('done')
 })
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
