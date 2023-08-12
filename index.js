@@ -23,8 +23,8 @@ app.post('/', async (req, res) => {
             break
     }
 
-    await sgMail
-        .send({
+    try {
+        await sgMail.send({
             to,
             from: 'simon.der.meyer@gmail.com',
             subject: `Anfrage von ${req.body.name}`,
@@ -39,18 +39,17 @@ app.post('/', async (req, res) => {
                 <p>${req.body.content}</p>
             `,
         })
-        .then(() => {
-            res.json({
-                success: true,
-                error: null,
-            })
+
+        res.json({
+            success: true,
+            error: null,
         })
-        .catch((error) => {
-            res.json({
-                success: false,
-                error,
-            })
+    } catch (error) {
+        res.json({
+            success: false,
+            error,
         })
+    }
 })
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
