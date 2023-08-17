@@ -22,6 +22,7 @@ app.post('/', async (req, res) => {
     console.log('host', host)
 
     if (
+        req.body.admin_password !== process.env.ADMIN_PASSWORD &&
         !(
             host === 'localhost:5555' ||
             host === 'mailer.lan'
