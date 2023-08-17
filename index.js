@@ -28,7 +28,9 @@ app.post('/', async (req, res) => {
         ) &&
         (
             !referrer ||
+            !referrer.startsWith('https://glencoden.github.io/looney-website') ||
             !referrer.startsWith('https://liverockkaraoke.de') ||
+            !referrer.startsWith('https://glencoden.github.io/hainarbeit') ||
             !referrer.startsWith('https://hainarbeit.de/')
         )
     ) {
