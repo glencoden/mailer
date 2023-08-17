@@ -12,6 +12,32 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const PORT = process.env.PORT || 5555
 
 app.post('/', async (req, res) => {
+    const referrer = req.get('referer')
+    const host = req.get('host')
+
+    console.log('referrer', referrer)
+    console.log('host', host)
+
+    if (
+        !(
+            host === 'localhost:5555' ||
+            host === 'mailer.lan'
+        ) &&
+        (
+            !referrer ||
+            !referrer.startsWith('https://liverockkaraoke.de') ||
+            !referrer.startsWith('https://hainarbeit.de/')
+        )
+    ) {
+        res.json({
+            success: false,
+            error: {
+                message: 'Invalid referrer',
+            },
+        })
+        return
+    }
+
     let to = 'simon.der.meyer@gmail.com'
 
     switch (req.body.page) {
@@ -39,7 +65,6 @@ app.post('/', async (req, res) => {
                 <p>${req.body.content}</p>
             `,
         })
-
         res.json({
             success: true,
             error: null,
