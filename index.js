@@ -20,6 +20,7 @@ app.post('/', async (req, res) => {
 
     console.log('referrer', referrer)
     console.log('host', host)
+    console.log('req.body', req.body)
 
     if (
         req.body.admin_password !== process.env.ADMIN_PASSWORD &&
