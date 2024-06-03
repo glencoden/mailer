@@ -12,6 +12,8 @@ app.use(bodyParser.json())
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
+console.log('process.env.MAILGUN_API_KEY', process.env.MAILGUN_API_KEY)
+
 const PORT = process.env.PORT || 5555
 
 app.post('/', async (req, res) => {
@@ -56,7 +58,7 @@ app.post('/', async (req, res) => {
     try {
         await sgMail.send({
             to,
-            from: 'simon.der.meyer@gmail.com',
+            from: 'contact@liverockkaraoke.de',
             subject: `Anfrage von ${req.body.name}`,
             text: req.body.content,
             html: `
@@ -69,6 +71,7 @@ app.post('/', async (req, res) => {
                 <p>${req.body.content}</p>
             `,
         })
+
         res.json({
             success: true,
             error: null,
